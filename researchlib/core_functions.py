@@ -56,10 +56,148 @@ def generate_unique_id(prefix: str = "DOC") -> str:
     """
     return f"{prefix}-{uuid.uuid4().hex[:10].upper()}"
 
+def sanitize_input(data: str) -> str:
+    """
+    Remove potentially unsafe characters from user-provided strings.
+
+    Args:
+        data (str): Input string.
+
+    Returns:
+        str: Sanitized string.
+    """
+    if not isinstance(data, str):
+        raise TypeError("Input must be a string.")
+    return re.sub(r"[<>\"'%;()&+]", "", data).strip()
+
+def format_date(date_str: str) -> str:
+    """
+    Format a date string into ISO 8601 format.
+
+    Args:
+        date_str (str): Date string in various common formats.
+
+    Returns:
+        str: Date in ISO format (YYYY-MM-DD).
+    """
+    try:
+        return datetime.strptime(date_str, "%m/%d/%Y").strftime("%Y-%m-%d")
+    except ValueError:
+        try:
+            return datetime.strptime(date_str, "%Y-%m-%d").strftime("%Y-%m-%d")
+        except ValueError:
+            raise ValueError("Date format not recognized. Use MM/DD/YYYY or YYYY-MM-DD.")
 
 # -=-=-=-=-=-=-=-=-=-=-=-
 # MEDIUM UTILITY FUNCTIONS
 # =-=-=-=-=-=-=-=-=-=-=-=
+
+def parse_metadata(record: str) -> Dict[str, Any]:
+    """
+    Parse metadata from a JSON or key-value formatted string.
+
+    Args:
+        record (str): Metadata string, JSON or "key: value" pairs.
+
+    Returns:
+        dict: Parsed metadata dictionary.
+    """
+    if not record:
+        raise ValueError("Metadata record cannot be empty.")
+    try:
+        return json.loads(record)
+    except json.JSONDecodeError:
+        lines = record.strip().split("\n")
+        metadata = {}
+        for line in lines:
+            if ":" in line:
+                key, value = line.split(":", 1)
+                metadata[key.strip()] = value.strip()
+        return metadata
+
+
+def search_documents(query: str, documents: List[Dict[str, Any]], fields: Optional[List[str]] = None) -> List[Dict[str, Any]]:
+    """
+    Search documents for a query string across specified fields.
+
+    Args:
+        query (str): Search query.
+        documents (list): List of document dictionaries.
+        fields (list, optional): Specific fields to search in.
+
+    Returns:
+        list: Filtered list of matching documents.
+    """
+    query = query.lower().strip()
+    if not query:
+        raise ValueError("Search query cannot be empty.")
+
+    results = []
+    for doc in documents:
+        search_fields = fields or doc.keys()
+        for f in search_fields:
+            val = str(doc.get(f, "")).lower()
+            if query in val:
+                results.append(doc)
+                break
+    return results
+
+
+def generate_citation(metadata: Dict[str, Any], style: str = "APA") -> str:
+    """
+    Generate a formatted citation string based on metadata.
+
+    Args:
+        metadata (dict): Document metadata (author, title, year, etc.).
+        style (str): Citation style ('APA', 'MLA', etc.).
+
+    Returns:
+        str: Formatted citation string.
+    """
+    author = metadata.get("author", "Unknown Author")
+    title = metadata.get("title", "Untitled")
+    year = metadata.get("year", "n.d.")
+
+    if style.upper() == "APA":
+        return f"{author} ({year}). {title}."
+    elif style.upper() == "MLA":
+        return f"{author}. \"{title}.\" {year}."
+    else:
+        raise ValueError(f"Unsupported citation style: {style}")
+
+
+def validate_research_entry(entry: Dict[str, Any]) -> bool:
+    """
+    Validate a research entry to ensure required fields exist and have the correct formats.
+
+    Args:
+        entry (dict): Research entry metadata.
+
+    Returns:
+        bool: True if entry is valid, raises ValueError otherwise.
+    """
+    required_fields = ["title", "author", "year", "identifier"]
+    for field in required_fields:
+        if field not in entry or not entry[field]:
+            raise ValueError(f"Missing or empty required field: {field}")
+    if not validate_isbn(entry.get("identifier", "")):
+        raise ValueError("Invalid ISBN/Identifier format.")
+    return True
+
+
+def export_to_json(data: Any, filepath: str) -> None:
+    """
+    Export data to a JSON file.
+
+    Args:
+        data (Any): Data to export.
+        filepath (str): File path to save JSON.
+    """
+    try:
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+    except Exception as e:
+        raise IOError(f"Failed to export data to {filepath}: {str(e)}")
 
 # -=-=-=-=-=-=-=-=-=-=-=-
 # COMPLEX FUNCTIONS
