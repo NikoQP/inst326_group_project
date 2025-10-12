@@ -11,6 +11,7 @@ REFER TO THIS IF YOU WRITE CODE: https://peps.python.org/pep-0008/#descriptive-n
 def validate_isbn(isbn: str) -> bool: (DONE) - Steven
 def normalize_author_name(name: str) -> str: (DONE) - Steven
 def generate_unique_id(prefix: str = "DOC") -> str: (DONE) -  Steven
+def format_date(date_str: str) -> str: DONE - Joshua 
 
 def sanitize_input(data: str) -> str:
     """
