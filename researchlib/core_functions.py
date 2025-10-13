@@ -26,6 +26,7 @@ def validate_isbn(isbn: str) -> bool:
     if len(isbn_clean) == 13 and isbn_clean.isdigit():
         return True
     return False
+
     
 def normalize_author_name(name: str) -> str:
     """
@@ -71,9 +72,15 @@ def sanitize_input(data: str) -> str:
     return re.sub(r"[<>\"'%;()&+]", "", data).strip()
 
 def format_date(date_str: str) -> str:
-    """
-    Format a date string into ISO 8601 format.
+    date_str = "2025-10-12"
 
+    dt = datetime.striptime(date_str, "%Y-%m-%d")
+
+    iso_date = dt.date().isoformat()
+
+    return iso_date
+
+    """
     Args:
         date_str (str): Date string in various common formats.
 
