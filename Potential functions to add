@@ -12,6 +12,10 @@ def validate_isbn(isbn: str) -> bool: (DONE) - Steven
 def normalize_author_name(name: str) -> str: (DONE) - Steven
 def generate_unique_id(prefix: str = "DOC") -> str: (DONE) -  Steven
 def format_date(date_str: str) -> str: (DONE) - Joshua 
+def sanitize_input(data: str) -> str: (DONE) - Ahmed
+def generate_citation(metadata: Dict[str, Any], style: str = "APA") -> str: (DONE) - Ahmed
+def export_to_json(data: Any, filepath: str) -> None: (DONE) - Ahmed
+
 
 def sanitize_input(data: str) -> str:
     """
