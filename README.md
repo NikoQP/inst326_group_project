@@ -16,4 +16,12 @@ Your README must include: (DELETE WHEN DONE)
 
 This package is part of the **Function Library Project (INST326)**, focusing on encapsulation and data validation principles.
 
----
+
+## Team Members & Roles
+
+| Name | Role | Responsibilities |
+|------|------|------------------|
+| Steven Ulloa | Lead Developer | Core library structure, documentation, and examples |
+| Joshua Koroma| Data Validation Specialist | Implementation of validation utilities |
+| Ahmed | Quality Assurance | Testing, debugging, and code review |
+
