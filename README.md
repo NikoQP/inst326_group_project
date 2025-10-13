@@ -25,3 +25,57 @@ This package is part of the **Function Library Project (INST326)**, focusing on 
 | Joshua Koroma| Data Validation Specialist | Implementation of validation utilities |
 | Ahmed | Quality Assurance | Testing, debugging, and code review |
 
+
+## 🎯 Domain Focus & Problem Statement
+
+Modern library systems rely on consistent data structures for tracking publications, citations, and digital library content. However, such systems often lack a simple, modular backend that validates and manages core research data consistently.
+
+**Problem:**  
+Institutions need a lightweight, extensible toolkit to handle:
+- ISBN and metadata validation  
+- Research entry consistency  
+- Keyword-based document indexing  
+- JSON export and citation generation  
+
+**Goal:**  
+`researchlib` solves this by providing a Python module that cleanly separates logic into reusable components. This module is meant to serve as a very simple universal basis, one that allows existing library systems to adapt and adopt this module.
+
+## Installation & Setup
+
+### Option 1 — Local use
+
+Clone or download the repository:
+
+```bash
+git clone https://github.com/yourusername/researchlib.git
+cd researchlib
+
+Make sure the structure looks like this:
+
+inst326_group_project/
+│
+├── researchlib/
+│   ├── __init__.py
+│   └── core_functions.py
+│
+├── examples/
+|   └── demo_script.py
+|
+├──docs/
+|  ├── README.md
+|  ├── function_reference.md
+|  └── usage_examples.md
+
+You can run the demo directly:
+
+python demo_script.py
+
+Option 2 — Editable install (recommended for development)
+
+pip install -e .
+
+Then you can use it anywhere:
+
+from researchlib import search_documents, generate_citation
+
+
