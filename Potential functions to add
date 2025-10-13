@@ -11,7 +11,7 @@ REFER TO THIS IF YOU WRITE CODE: https://peps.python.org/pep-0008/#descriptive-n
 def validate_isbn(isbn: str) -> bool: (DONE) - Steven
 def normalize_author_name(name: str) -> str: (DONE) - Steven
 def generate_unique_id(prefix: str = "DOC") -> str: (DONE) -  Steven
-def format_date(date_str: str) -> str: DONE - Joshua 
+def format_date(date_str: str) -> str: (DONE) - Joshua 
 
 def sanitize_input(data: str) -> str:
     """
@@ -39,7 +39,7 @@ def format_date(date_str: str) -> str:
 # MEDIUM COMPLEXITY FUNCTIONS (15–25 lines)
 # =======================
 
-def parse_metadata(record: str) -> Dict[str, Any]:
+def parse_metadata(record: str) -> Dict[str, Any]: (DONE)- Joshua
     """
     Parse metadata from a JSON or key-value formatted string.
 
