@@ -45,18 +45,23 @@ Make sure the structure looks like this:
 Make sure the structure looks like this:
 
 inst326_group_project/
-│
 ├── researchlib/
 │   ├── __init__.py
-│   └── core_functions.py
-│
+│   ├── core_functions.py          
+│   └── researchlib_classes.py        
 ├── examples/
-|   └── demo_script.py
-|
-├──docs/
-|  ├── README.md
-|  ├── function_reference.md
-|  └── usage_examples.md
+│   ├── demo_script.py             
+│   └── class_examples.py            
+├── docs/                
+│   ├── function_reference.md      
+│   ├── usage_examples.md          
+│   ├── class_design.md            
+│   ├── api_reference.md           
+│
+│
+├── Potential functions to add     
+└── README.md                      
+
 ```
 
 You can run the demo directly:
